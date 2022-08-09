@@ -10,8 +10,8 @@
 #include <map>
 #include <cmath>
 
-#define M 20
-#define m 10
+#define M 100
+#define m 50
 #define DIM 2 
 
 #define nullptr NULL
@@ -120,6 +120,9 @@ class RTreeNode {
 		float LatLonDisplacement(GeoLoc &loc1, GeoLoc &loc2);
 		float GetMinDist(GeoLoc &loc);
 		void SearchNearestBB(GeoLoc &loc, float& min_dist, std::map<int, std::vector<RTreeNode*>> &results, float lb_dist);
+
+		// Print RTree
+		void PrintBB(std::ofstream &bb_file);
 };
 
 class RTree {
@@ -134,6 +137,8 @@ class RTree {
 		RTreeNode* GetRoot() { return rtree_root_;}
 
 		void InsertNewNode(int id, GeoLoc &loc);
+
+		void PrintRTreeBB(std::ofstream &bb_file);
 };
 
 #endif

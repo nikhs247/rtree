@@ -7,7 +7,7 @@ Parameters
 
 Dimension supported:
 - 2D
-- Already supports ND, required few tweaks
+- Already supports ND, require few tweaks
 
 Operations supported:
 - Insertion
@@ -18,3 +18,7 @@ Issues:
 To Do:
 - Deletion
 - Quadratic pick seeds implemented, need to add linear pick seeds
+
+Sample result : data/iot_devices.csv
+
+![](results/rtree_bb.gif)

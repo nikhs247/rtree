@@ -34,6 +34,12 @@ int main(int argc, char *argv[]){
 		rtree->InsertNewNode(id, loc);
 		std::cout << "Inserted: " << id << std::endl;
 	}
+	fin.close();
+
+	std::ofstream bb_file_handle;
+	bb_file_handle.open(std::string(argv[2]), std::ios::out);
+	rtree->PrintRTreeBB(bb_file_handle);
+	bb_file_handle.close();
 
 	return 0;
 }

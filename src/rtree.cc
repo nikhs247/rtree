@@ -634,3 +634,22 @@ void RTree::InsertNewNode(int id, GeoLoc &loc){
     RTreeNode *new_node = new RTreeNode(id, loc);
     rtree_root_->Insert(this, new_node);
 }
+
+void RTreeNode::PrintBB(std::ofstream &bb_file_handle){
+    if(children_.size() != 0){
+        for(auto child_it = children_.begin(); child_it != children_.end(); ++child_it){
+            RTreeNode *child = *child_it;
+            child->PrintBB(bb_file_handle);
+        }
+        for (int i = 0; i < DIM; i++)
+            bb_file_handle << bb_->bottom_left_[i] << " ";
+
+        for (int i = 0; i < DIM; i++)
+            bb_file_handle << bb_->top_right_[i] << " ";
+        
+        bb_file_handle << std::endl;
+    }
+}
+void RTree::PrintRTreeBB(std::ofstream &bb_file_handle){
+    rtree_root_->PrintBB(bb_file_handle);
+}
