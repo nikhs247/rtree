@@ -650,6 +650,29 @@ void RTreeNode::PrintBB(std::ofstream &bb_file_handle){
         bb_file_handle << std::endl;
     }
 }
-void RTree::PrintRTreeBB(std::ofstream &bb_file_handle){
-    rtree_root_->PrintBB(bb_file_handle);
+
+void RTreeNode::PrintDataOnlyBB(std::ofstream &bb_file_handle){
+    if(children_.size() != 0){
+        for(auto child_it = children_.begin(); child_it != children_.end(); ++child_it){
+            RTreeNode *child = *child_it;
+
+            if(child->children_.size() == 0){
+                for (int i = 0; i < DIM; i++)
+                    bb_file_handle << bb_->bottom_left_[i] << " ";
+
+                for (int i = 0; i < DIM; i++)
+                    bb_file_handle << bb_->top_right_[i] << " ";
+                
+                bb_file_handle << std::endl;
+                return;
+            }
+            child->PrintDataOnlyBB(bb_file_handle);
+        }
+    }
+}
+void RTree::PrintRTree(std::ofstream &file_handle, std::string choice){
+    if(choice == "BB")
+        rtree_root_->PrintBB(file_handle);
+    if(choice == "DATABB")
+        rtree_root_->PrintDataOnlyBB(file_handle);
 }

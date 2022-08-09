@@ -38,8 +38,13 @@ int main(int argc, char *argv[]){
 
 	std::ofstream bb_file_handle;
 	bb_file_handle.open(std::string(argv[2]), std::ios::out);
-	rtree->PrintRTreeBB(bb_file_handle);
+	rtree->PrintRTree(bb_file_handle, "BB");
 	bb_file_handle.close();
+
+	std::ofstream data_bb_file_handle;
+	data_bb_file_handle.open(std::string(argv[3]), std::ios::out);
+	rtree->PrintRTree(data_bb_file_handle, "DATABB");
+	data_bb_file_handle.close();
 
 	return 0;
 }

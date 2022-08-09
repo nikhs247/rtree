@@ -123,6 +123,7 @@ class RTreeNode {
 
 		// Print RTree
 		void PrintBB(std::ofstream &bb_file);
+		void PrintDataOnlyBB(std::ofstream &bb_file_handle);
 };
 
 class RTree {
@@ -138,7 +139,7 @@ class RTree {
 
 		void InsertNewNode(int id, GeoLoc &loc);
 
-		void PrintRTreeBB(std::ofstream &bb_file);
+		void PrintRTree(std::ofstream &file_handle, std::string choice);
 };
 
 #endif

@@ -2,8 +2,8 @@
 RTree based on [Guttman's](https://dl.acm.org/doi/10.1145/971697.602266) approach
 
 Parameters
-- m = 10
-- M = 20
+- m = 100
+- M = 50
 
 Dimension supported:
 - 2D
