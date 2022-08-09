@@ -4,13 +4,13 @@ import matplotlib.patches as patches
 import pandas as pd
 
 df = pd.read_csv('results/iot_bb.csv', delimiter=' ', header=None)
-
-print(df[0][0], ' ', df[1][0])
+df_xy = pd.read_csv('data/iot_devices.csv', delimiter=',', header=None)
 
 fig, ax = plt.subplots()
 
 plt.xlabel('x')
 plt.ylabel('y')
+plt.scatter(df_xy[1], df_xy[2], s=1)
 
 patch = patches.Rectangle((0,0), 0, 0, fc='none', ec='black')
 
@@ -27,6 +27,5 @@ def plotRTreeBB(i):
     ax.add_patch(patch)
     return patch
 
-animate = ani.FuncAnimation(fig, plotRTreeBB,  interval=1, save_count=484)
+animate = ani.FuncAnimation(fig, plotRTreeBB, save_count=484, interval=1000)
 animate.save('results/rtree_bb.gif')
-plt.show()
