@@ -9,6 +9,7 @@
 #include <vector>
 #include <map>
 #include <cmath>
+#include <algorithm>
 
 #define M 100
 #define m 50
@@ -119,7 +120,9 @@ class RTreeNode {
 		// Get neighborhood locations of a query
 		float LatLonDisplacement(GeoLoc &loc1, GeoLoc &loc2);
 		float GetMinDist(GeoLoc &loc);
+		float GetMaxDist(GeoLoc &loc);
 		void SearchNearestBB(GeoLoc &loc, float& min_dist, std::map<int, std::vector<RTreeNode*>> &results, float lb_dist);
+		void SearchInConcentricCircles(GeoLoc &loc, float lb_dist, float ub_dist, std::map<int, std::vector<RTreeNode*>> &results);
 
 		// Print RTree
 		void PrintBB(std::ofstream &bb_file);
@@ -129,6 +132,8 @@ class RTreeNode {
 class RTree {
 	private:
 		RTreeNode* rtree_root_;
+
+		GeoLoc host_bound_bl_, host_bound_tr_;
 	public:
 		RTree();
 		~RTree();
@@ -137,7 +142,10 @@ class RTree {
 		void SetRoot(RTreeNode* root) {rtree_root_ = root;}
 		RTreeNode* GetRoot() { return rtree_root_;}
 
+		void UpdateBound(GeoLoc &loc);
 		void InsertNewNode(int id, GeoLoc &loc);
+
+		void SearchConcentricNeighbors(GeoLoc &loc, std::map<int, GeoLoc *> &concentric_space);
 
 		void PrintRTree(std::ofstream &file_handle, std::string choice);
 };

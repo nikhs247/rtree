@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug  8 12:20:42 2022
+# Make data base, printed on Wed Aug 17 11:18:01 2022
 
 # Variables
 
@@ -45,7 +45,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:51018
+JOURNAL_STREAM = 8:52158
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -65,7 +65,7 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-MANAGERPID = 1881
+MANAGERPID = 2092
 # environment
 P9K_SSH = 0
 # environment
@@ -79,7 +79,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/nick-ThinkPad-T480:@/tmp/.ICE-unix/2127,unix/nick-ThinkPad-T480:/tmp/.ICE-unix/2127
+SESSION_MANAGER = local/nick-ThinkPad-T480:@/tmp/.ICE-unix/3130,unix/nick-ThinkPad-T480:/tmp/.ICE-unix/3130
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -89,7 +89,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 843435107e004cf0ad80a6dc6d090a94
+INVOCATION_ID = e547df8cfa85409481b3215aa57cecb0
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -99,7 +99,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 11388
+GIO_LAUNCHED_DESKTOP_FILE_PID = 11398
 # automatic
 %F = $(notdir $%)
 # environment
@@ -111,7 +111,7 @@ PWD = /home/nick/UMN/Research/Projects/Side/rtree
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2066
+SSH_AGENT_PID = 3089
 # environment
 PKG_CONFIG_PATH = /home/nick/Setup/grpc/lib/pkgconfig
 # environment
@@ -123,11 +123,11 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/nick
 # environment
-VSCODE_CODE_CACHE_PATH = /home/nick/.config/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+VSCODE_CODE_CACHE_PATH = /home/nick/.config/Code/CachedData/da76f93349a72022ca4670c1b84860304616aaa2
 # environment
 LOGNAME = nick
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 ZSH = /home/nick/.oh-my-zsh
 # environment
@@ -171,7 +171,7 @@ OLDPWD = /home/nick
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-dc656a11-1.69.2-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-dc656a11-1.70.0-main.sock
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -217,9 +217,9 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
-VSCODE_PID = 11388
+VSCODE_PID = 11398
 # variable set hash-table stats:
-# Load=104/1024=10%, Rehash=0, Collisions=12/129=9%
+# Load=104/1024=10%, Rehash=0, Collisions=12/134=9%
 
 # Pattern-specific Variable Values
 
@@ -227,9 +227,9 @@ VSCODE_PID = 11388
 
 # Directories
 
-# . (device 66311, inode 4749563): 11 files, no impossibilities.
+# . (device 66311, inode 4749563): 13 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -239,9 +239,11 @@ VSCODE_PID = 11388
 
 build/main.o: build/rtree.o src/main.cc
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-07 19:57:47.079977541
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
 #  recipe to execute (from 'Makefile', line 9):
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
@@ -250,9 +252,17 @@ all: build/main.o
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
 
 .PHONY: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.SUFFIXES:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -266,16 +276,35 @@ Makefile:
 
 # Not a target:
 src/main.cc:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-07 19:57:17.399533542
-#  File has been updated.
-#  Successfully updated.
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+ 
+#  File has not been updated.
 
 build/rtree.o: src/rtree.cc
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-07 19:53:44.624699737
+#  Implicit/static pattern stem: ''
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := build/rtree.o
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := src/rtree.cc
+# automatic
+# | := 
+# automatic
+# < := src/rtree.cc
+# automatic
+# ^ := src/rtree.cc
+# automatic
+# ? := src/rtree.cc
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/15=7%
 #  recipe to execute (from 'Makefile', line 6):
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
 
@@ -296,24 +325,24 @@ clean:
 # Not a target:
 src/rtree.cc:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-07 19:52:36.035946403
+#  Last modified 2022-08-09 11:23:10.901168317
 #  File has been updated.
 #  Successfully updated.
 
 # files hash-table stats:
-# Load=10/1024=1%, Rehash=0, Collisions=0/28=0%
+# Load=10/1024=1%, Rehash=0, Collisions=0/29=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 22 / storage = 185 B / avg = 8 B
-# current buf: size = 8162 B / used = 185 B / count = 22 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 24 / storage = 201 B / avg = 8 B
+# current buf: size = 8162 B / used = 201 B / count = 24 / avg = 8 B
 
-# strcache performance: lookups = 35 / hit rate = 37%
+# strcache performance: lookups = 38 / hit rate = 36%
 # hash-table stats:
-# Load=22/8192=0%, Rehash=0, Collisions=1/35=3%
-# Finished Make data base on Mon Aug  8 12:20:42 2022
+# Load=24/8192=0%, Rehash=0, Collisions=1/38=3%
+# Finished Make data base on Wed Aug 17 11:18:01 2022
 
  

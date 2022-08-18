@@ -600,6 +600,26 @@ float RTreeNode::GetMinDist(GeoLoc &loc){
     return min_dist;
 }
 
+float RTreeNode::GetMaxDist(GeoLoc &loc){
+    GeoLoc top_left, bottom_right;
+    top_left.push_back(bb_->bottom_left_[0]);
+    top_left.push_back(bb_->top_right_[1]);
+    bottom_right.push_back(bb_->top_right_[0]);
+    bottom_right.push_back(bb_->bottom_left_[1]);
+
+    float max_dist = -1;
+    float dist = LatLonDisplacement(loc, bb_->bottom_left_);
+    if(dist > max_dist) max_dist = dist;
+    dist = LatLonDisplacement(loc, bb_->top_right_);
+    if(dist > max_dist) max_dist = dist;
+    dist = LatLonDisplacement(loc, top_left);
+    if(dist > max_dist) max_dist = dist;
+    dist = LatLonDisplacement(loc, bottom_right);
+    if(dist > max_dist) max_dist = dist;
+
+    return max_dist;
+}
+
 void RTreeNode::SearchNearestBB(GeoLoc &loc, float& min_dist, std::map<int, std::vector<RTreeNode*>> &results, float lb_dist){
 
     if(children_.size() != 0){
@@ -622,17 +642,24 @@ void RTreeNode::SearchNearestBB(GeoLoc &loc, float& min_dist, std::map<int, std:
     }
 }
 
-RTree::RTree(){
-    rtree_root_ = new RTreeNode();
-}
+void RTreeNode::SearchInConcentricCircles(GeoLoc &loc, float lb_dist, float ub_dist, std::map<int, std::vector<RTreeNode*>> &results){
 
-RTree::~RTree(){
-    
-}
-
-void RTree::InsertNewNode(int id, GeoLoc &loc){
-    RTreeNode *new_node = new RTreeNode(id, loc);
-    rtree_root_->Insert(this, new_node);
+    if(children_.size() != 0){
+        for(auto it = children_.begin(); it != children_.end(); ++it) {
+            RTreeNode* child = *it;
+            if(child -> children_.size() == 0){
+                float dist = LatLonDisplacement(loc, child->loc_);
+                if(dist > lb_dist && dist < ub_dist)
+                    results[id_].push_back(child);
+            }
+            else{
+                float dist = child->GetMinDist(loc);
+                if(dist > lb_dist && dist < ub_dist){
+                    child->SearchInConcentricCircles(loc, lb_dist, ub_dist, results);
+                }
+            }
+        }
+    }
 }
 
 void RTreeNode::PrintBB(std::ofstream &bb_file_handle){
@@ -670,6 +697,64 @@ void RTreeNode::PrintDataOnlyBB(std::ofstream &bb_file_handle){
         }
     }
 }
+
+
+RTree::RTree(){
+    rtree_root_ = new RTreeNode();
+}
+
+RTree::~RTree(){
+    
+}
+
+void RTree::UpdateBound(GeoLoc &loc){
+
+	for(int i = 0; i < DIM; i++){
+		if(host_bound_bl_.empty()){
+			host_bound_bl_.push_back(loc[i]);
+			host_bound_tr_.push_back(loc[i]);
+		} else {
+			host_bound_bl_[i] = std::fmin(host_bound_bl_[i], loc[i]);
+			host_bound_tr_[i] = std::fmax(host_bound_tr_[i], loc[i]);
+		}
+	}
+}
+
+void RTree::InsertNewNode(int id, GeoLoc &loc){
+    RTreeNode *new_node = new RTreeNode(id, loc);
+    rtree_root_->Insert(this, new_node);
+    UpdateBound(loc);
+}
+
+void RTree::SearchConcentricNeighbors(GeoLoc &loc, std::map<int, GeoLoc *> &concentric_space){
+    float dist_bl = rtree_root_->LatLonDisplacement(loc, host_bound_bl_);
+	float dist_tr = rtree_root_->LatLonDisplacement(loc, host_bound_tr_);
+
+	float max_dist = std::fmax(dist_bl, dist_tr);
+	float per_epoch_enlarge_dist = max_dist / 5.0;
+
+	float lb_dist = 0;
+	float ub_dist = per_epoch_enlarge_dist;
+    int n_cc = 1;
+    int count = 0;
+	while(count < n_cc) {
+		std::map<int, std::vector<RTreeNode*>> results;
+		
+		rtree_root_->SearchInConcentricCircles(loc, lb_dist, ub_dist, results);
+
+		for(auto res_it = results.begin(); res_it != results.end(); ++res_it){
+			for(auto rnode_it = res_it->second.begin(); rnode_it != res_it->second.end(); ++rnode_it) {
+				RTreeNode* rnode = *rnode_it;
+				int id = rnode->id_;
+                concentric_space[id] = &(rnode->loc_);
+			}
+		}
+		lb_dist = ub_dist;
+		ub_dist = ub_dist + per_epoch_enlarge_dist;
+        count++;
+	}
+}
+
 void RTree::PrintRTree(std::ofstream &file_handle, std::string choice){
     if(choice == "BB")
         rtree_root_->PrintBB(file_handle);
